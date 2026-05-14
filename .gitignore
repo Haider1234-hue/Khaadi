@@ -18,6 +18,10 @@
 .env.test.local
 .env.production.local
 
+# ignore editor settings and nested repo
+.vscode/
+Khaadi/
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

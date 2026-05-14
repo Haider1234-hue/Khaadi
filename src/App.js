@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/layout/Navbar"; 
+import Announcement from "./components/layout/Announcement"; 
+import Footer from "./components/layout/Footer";
+import Home from "./pages/Home";
+import Shop from "./pages/Shop";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      {/* Ye teeno cheezain Routes se bahar hain, isliye har page par nazar aayengi */}
+      <Announcement />
+      <Navbar />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/new-in" element={<Shop />} />
+        {/* Baaki routes yahan ayenge */}
+      </Routes>
+
+      <Footer />
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

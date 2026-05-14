@@ -1,13 +1,50 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.hero{
+    height: 100vh;
+    background-image: linear-gradient(
+        rgba(0,0,0,0.3),
+        rgba(0,0,0,0.3)
+    ),
+    url("YOUR_IMAGE");
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 80px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.hero-content{
+    color: white;
+    max-width: 500px;
+}
+
+.hero-content h1{
+    font-size: 72px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.hero-content p{
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.hero-content button{
+    padding: 14px 34px;
+    border: none;
+    background: white;
+    cursor: pointer;
+}
+
+.product-card img{
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    transition: 0.4s;
+}
+
+.product-card:hover img{
+    transform: scale(1.03);
 }
