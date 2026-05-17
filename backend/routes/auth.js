@@ -4,36 +4,31 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 // ================================
-// REGISTER — Naya user banao
+// REGISTER 
 // ================================
 router.post('/register', async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    // 1. Email pehle se registered hai?
     const exists = await User.findOne({ email });
     if (exists) {
-      return res.status(400).json({ message: 'Email pehle se registered hai' });
+      return res.status(400).json({ message: 'Email registered already' });
     }
 
-    // 2. Password encrypt karo
     const hashed = await bcrypt.hash(password, 10);
 
-    // 3. User database mein save karo
     const user = await User.create({ 
       name, 
       email, 
       password: hashed 
     });
 
-    // 4. Token banao
     const token = jwt.sign(
       { id: user._id, isAdmin: user.isAdmin },
       process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
 
-    // 5. Token aur user info wapas bhejo
     res.status(201).json({ 
       token, 
       user: { 
@@ -50,7 +45,7 @@ router.post('/register', async (req, res) => {
 });
 
 // ================================
-// LOGIN — Existing user login karo
+// LOGIN — Existing user login 
 // ================================
 router.post('/login', async (req, res) => {
   try {
@@ -59,23 +54,20 @@ router.post('/login', async (req, res) => {
     // 1. User dhundo
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ message: 'Email ya password galat hai' });
+      return res.status(400).json({ message: 'Email or password is incorrect' });
     }
 
-    // 2. Password check karo
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
-      return res.status(400).json({ message: 'Email ya password galat hai' });
+      return res.status(400).json({ message: 'Email or password is incorrect' });
     }
 
-    // 3. Token banao
     const token = jwt.sign(
       { id: user._id, isAdmin: user.isAdmin },
       process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
 
-    // 4. Token aur user info wapas bhejo
     res.json({ 
       token, 
       user: { 

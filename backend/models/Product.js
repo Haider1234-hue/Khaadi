@@ -15,19 +15,19 @@ const productSchema = new mongoose.Schema({
   category: { 
     type: String, 
     required: true,
-    enum: ['women', 'men', 'kids', 'home'] // sirf yeh categories allowed
+    enum: ['women', 'men', 'kids', 'home'] 
   },
   image: { 
-    type: String   // image ka URL store hoga
+    type: String   
   },
-  sizes: [String], // jaise ['XS', 'S', 'M', 'L', 'XL']
+  sizes: [String], 
   stock: { 
     type: Number, 
     default: 0 
   },
   featured: { 
     type: Boolean, 
-    default: false  // home page pe dikhana ho toh true
+    default: false  
   }
 }, { timestamps: true });
 

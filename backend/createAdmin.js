@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGO_URI)
       isAdmin: true
     });
 
-    console.log('Admin ban gaya!', admin.email);
+    console.log('Admin Added!', admin.email);
     process.exit();
   })
   .catch(err => {

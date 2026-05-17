@@ -3,18 +3,16 @@ const Product = require('../models/Product');
 const auth = require('../middleware/auth');
 
 // ================================
-// GET ALL PRODUCTS — Sab products lo
+// GET ALL PRODUCTS 
 // ================================
 router.get('/', async (req, res) => {
   try {
     const filter = {};
     
-    // Category filter — /api/products?category=women
     if (req.query.category) {
       filter.category = req.query.category;
     }
     
-    // Featured filter — /api/products?featured=true
     if (req.query.featured) {
       filter.featured = true;
     }
@@ -28,7 +26,7 @@ router.get('/', async (req, res) => {
 });
 
 // ================================
-// GET SINGLE PRODUCT — Ek product lo
+// GET SINGLE PRODUCT 
 // ================================
 router.get('/:id', async (req, res) => {
   try {
@@ -46,11 +44,10 @@ router.get('/:id', async (req, res) => {
 });
 
 // ================================
-// ADD PRODUCT — Naya product banao (Admin only)
+// ADD PRODUCT 
 // ================================
 router.post('/', auth, async (req, res) => {
   try {
-    // Sirf admin add kar sakta hai
     if (!req.user.isAdmin) {
       return res.status(403).json({ message: 'Sirf admin yeh kar sakta hai' });
     }
@@ -76,23 +73,22 @@ router.post('/', auth, async (req, res) => {
 });
 
 // ================================
-// UPDATE PRODUCT — Product update karo (Admin only)
+// UPDATE PRODUCT
 // ================================
 router.put('/:id', auth, async (req, res) => {
   try {
-    // Sirf admin update kar sakta hai
     if (!req.user.isAdmin) {
-      return res.status(403).json({ message: 'Sirf admin yeh kar sakta hai' });
+      return res.status(403).json({ message: 'only admin can access' });
     }
 
     const product = await Product.findByIdAndUpdate(
       req.params.id, 
       req.body,
-      { new: true } // updated product wapas bhejo
+      { new: true } 
     );
 
     if (!product) {
-      return res.status(404).json({ message: 'Product nahi mila' });
+      return res.status(404).json({ message: 'Product Not found' });
     }
 
     res.json(product);
@@ -103,22 +99,21 @@ router.put('/:id', auth, async (req, res) => {
 });
 
 // ================================
-// DELETE PRODUCT — Product delete karo (Admin only)
+// DELETE PRODUCT (Admin only)
 // ================================
 router.delete('/:id', auth, async (req, res) => {
   try {
-    // Sirf admin delete kar sakta hai
     if (!req.user.isAdmin) {
-      return res.status(403).json({ message: 'Sirf admin yeh kar sakta hai' });
+      return res.status(403).json({ message: 'Only admin can delete' });
     }
 
     const product = await Product.findByIdAndDelete(req.params.id);
 
     if (!product) {
-      return res.status(404).json({ message: 'Product nahi mila' });
+      return res.status(404).json({ message: 'No Product found' });
     }
 
-    res.json({ message: 'Product delete ho gaya' });
+    res.json({ message: 'Product deleted' });
 
   } catch (err) {
     res.status(500).json({ message: 'Server error' });

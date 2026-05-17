@@ -6,7 +6,7 @@ module.exports = function(req, res, next) {
   
   // Token hai hi nahi
   if (!token) {
-    return res.status(401).json({ message: 'Login karein pehle' });
+    return res.status(401).json({ message: 'Login first' });
   }
 
   try {
@@ -15,6 +15,6 @@ module.exports = function(req, res, next) {
     req.user = decoded; // user info request mein save karo
     next(); // aage jao
   } catch {
-    res.status(401).json({ message: 'Token galat hai' });
+    res.status(401).json({ message: 'Wrong Token ' });
   }
 };
