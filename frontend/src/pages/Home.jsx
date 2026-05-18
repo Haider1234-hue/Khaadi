@@ -95,7 +95,6 @@ const bestsellers = [
   { id: 1, img: 'https://pk.khaadi.com/dw/image/v2/BJTG_PRD/on/demandware.static/-/Library-Sites-KhaadiSharedLibrary/default/dw7af8c84b/0.0-0.0-0.0-0.0-0.0-0.0-0.012-5-26-secondary-Desktop-banner-1.jpg', link: '/products' },
 ]
 
-// Product Card Component
 function ProductCard({ product }) {
   return (
     <Link to={`/products/${product.id}`} className="group cursor-pointer block">
