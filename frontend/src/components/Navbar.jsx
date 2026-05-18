@@ -1,20 +1,18 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/useAuth";
 import { useState } from "react";
-import KhaadiLogo from "./KhaadiLogo";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [activeMenu, setActiveMenu] = useState(null);
-  const [userDropdown, setUserDropdown] = useState(false); // ← yeh add karo
+  const [userDropdown, setUserDropdown] = useState(false); 
 
   const handleLogout = () => {
     logout();
     navigate("/");
   };
 
-  // Mega menu with images — exact Khaadi style
   const megaMenuData = {
     "NEW IN": {
       items: [
