@@ -13,7 +13,7 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/products', require('./routes/products'));
 
 app.get('/', (req, res) => {
-  res.json({ message: 'Khaadi Backend chal raha hai!' });
+  res.json({ message: 'Backend started!' });
 });
 
 mongoose.connect(process.env.MONGO_URI, {
@@ -22,7 +22,7 @@ mongoose.connect(process.env.MONGO_URI, {
 })  .then(() => {
     console.log('MongoDB connected!');
     app.listen(process.env.PORT, () => {
-      console.log(`Server port ${process.env.PORT} pe chal raha hai`);
+      console.log(`Server port ${process.env.PORT}`);
     });
   })
   .catch(err => console.log('MongoDB Error:', err));
