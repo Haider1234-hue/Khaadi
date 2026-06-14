@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import { useAuth } from '../context/useAuth'
+import api from '../lib/api'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -35,7 +35,7 @@ export default function Login() {
     setLoginError('')
     setLoginLoading(true)
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', loginData)
+      const res = await api.post('/auth/login', loginData)
       login(res.data.user, res.data.token)
       navigate('/home')
     } catch (err) {
@@ -59,7 +59,7 @@ export default function Login() {
 
     setRegLoading(true)
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/register', {
+      const res = await api.post('/auth/register', {
         name: `${regData.firstName} ${regData.lastName}`,
         email: regData.email,
         password: regData.password

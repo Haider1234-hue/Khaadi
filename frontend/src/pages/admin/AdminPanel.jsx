@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/useAuth'
-import axios from 'axios'
+import api from '../../lib/api'
 
 export default function AdminPanel() {
   const { user, token } = useAuth()
@@ -32,9 +32,9 @@ export default function AdminPanel() {
   const fetchProducts = async () => {
     try {
       setLoading(true)
-      const res = await axios.get('http://localhost:5000/api/products')
+      const res = await api.get('/products')
       setProducts(res.data)
-    } catch (err) {
+    } catch {
       setError('Products load nahi hue')
     } finally {
       setLoading(false)
@@ -42,6 +42,7 @@ export default function AdminPanel() {
   }
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchProducts()
   }, [])
 
@@ -60,15 +61,15 @@ export default function AdminPanel() {
 
     try {
       if (editProduct) {
-        await axios.put(
-          `http://localhost:5000/api/products/${editProduct._id}`,
+        await api.put(
+          `/products/${editProduct._id}`,
           data,
           { headers: { Authorization: `Bearer ${token}` } }
         )
         setSuccess('Product update ho gaya!')
       } else {
-        await axios.post(
-          'http://localhost:5000/api/products',
+        await api.post(
+          '/products',
           data,
           { headers: { Authorization: `Bearer ${token}` } }
         )
@@ -87,13 +88,13 @@ export default function AdminPanel() {
   const handleDelete = async (id) => {
     if (!window.confirm('Product delete karna chahte hain?')) return
     try {
-      await axios.delete(
-        `http://localhost:5000/api/products/${id}`,
+      await api.delete(
+        `/products/${id}`,
         { headers: { Authorization: `Bearer ${token}` } }
       )
       setSuccess('Product delete ho gaya!')
       fetchProducts()
-    } catch (err) {
+    } catch {
       setError('Delete nahi hua')
     }
   }

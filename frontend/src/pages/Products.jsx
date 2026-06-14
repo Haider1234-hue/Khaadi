@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import axios from 'axios'
+import api from '../lib/api'
 
 const collections = [
   { id: 1, label: 'Basics:\nBloomscape', img: 'https://pk.khaadi.com/dw/image/v2/BJTG_PRD/on/demandware.static/-/Library-Sites-KhaadiSharedLibrary/default/dw471c65d8/0.0-0.0-0.0-0.0-0.0-0.0-0.012-5-26-Top-picks-secondary-Desktop-banner-2.jpg' },
@@ -41,10 +41,9 @@ export default function Products() {
     const fetchProducts = async () => {
       try {
         const categoryParam = searchParams.get('category')
-        const url = categoryParam
-          ? `http://localhost:5000/api/products?category=${categoryParam}`
-          : 'http://localhost:5000/api/products'
-        const res = await axios.get(url)
+        const res = await api.get('/products', {
+          params: categoryParam ? { category: categoryParam } : undefined
+        })
         setApiProducts(res.data)
       } catch (err) {
         console.log('Products load nahi hue:', err)
